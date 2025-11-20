@@ -1,4 +1,5 @@
 package com.services;
+import com.configurations.JavaRateLimiterClientConfiguration;
 import com.strategyobjects.TokenBucket;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
@@ -7,8 +8,8 @@ public class TokenBucketRateLimiter implements RedisRateLimiter {
     private final Jedis jedis;
     private TokenBucket tokenBucket;
 
-    public TokenBucketRateLimiter(Jedis jedis, TokenBucket tokenBucket) {
-        this.jedis = jedis;
+    public TokenBucketRateLimiter(JavaRateLimiterClientConfiguration javaRateLimiterClientConfiguration, TokenBucket tokenBucket) {
+        this.jedis = RedisClientBuilder.build(javaRateLimiterClientConfiguration);
         this.tokenBucket = tokenBucket;
     }
 
