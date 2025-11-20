@@ -15,8 +15,8 @@ public class TokenBucketRateLimiter implements RedisRateLimiter {
 
     @Override
     public boolean allowRequest(String clientId) {
-        String keyCount = "token_bucket_ratelimiter" + clientId + ":token_count";
-        String keyLastRefill = "token_bucket_ratelimiter" + clientId + ":last_refill_timestamp";
+        String keyCount = "token_bucket_ratelimiter:{" + clientId + "}:token_count";
+        String keyLastRefill = "token_bucket_ratelimiter:{" + clientId + "}:last_refill_timestamp";
 
         Transaction transaction = jedis.multi();
         transaction.get(keyCount);
